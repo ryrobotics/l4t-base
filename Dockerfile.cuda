@@ -29,6 +29,7 @@ RUN CUDAPKG=$(echo $CUDA | sed 's/\./-/'); \
 	cuda-nvtx-$CUDAPKG \
 	cuda-libraries-dev-$CUDAPKG \
 	cuda-minimal-build-$CUDAPKG \
+	cuda-license-$CUDAPKG \
 	cuda-command-line-tools-$CUDAPKG && \
 	ln -s /usr/local/cuda-$CUDA /usr/local/cuda && \
 	rm -rf /var/lib/apt/lists/*
