@@ -15,7 +15,8 @@
 DOC     = /usr/share/doc/cuda
 VAR     = /var/cuda
 
-RELEASE ?= r32.4.3
+RELEASE ?= r32.4
+TAG     ?= r32.4.3
 CUDA    ?= 10.2
 
 include $(CURDIR)/common.mk
@@ -24,11 +25,11 @@ all: image
 
 image:
 	mkdir -p ${CURDIR}/dst
-	podman build $(DOCKER_BINFMT_MISC) -t nvcr.io/nvidian/nvidia-l4t-cuda:$(RELEASE) \
+	podman build $(DOCKER_BINFMT_MISC) -t nvcr.io/nvidian/nvidia-l4t-cuda:$(TAG) \
 		--build-arg "RELEASE=$(RELEASE)" --build-arg "CUDA=$(CUDA)" \
 		-f ./Dockerfile.cuda ./
-	podman run -t $(DOCKER_BINFMT_MISC) -v $(CURDIR)/dst:/dst nvcr.io/nvidian/nvidia-l4t-cuda:$(RELEASE) sh -c 'cp -r /usr/local/cuda/* /dst'
-	podman build $(DOCKER_BINFMT_MISC) -t nvcr.io/nvidian/nvidia-l4t-base:$(RELEASE) \
+	podman run -t $(DOCKER_BINFMT_MISC) -v $(CURDIR)/dst:/dst nvcr.io/nvidian/nvidia-l4t-cuda:$(TAG) sh -c 'cp -r /usr/local/cuda/* /dst'
+	podman build $(DOCKER_BINFMT_MISC) -t nvcr.io/nvidian/nvidia-l4t-base:$(TAG) \
 		--build-arg "RELEASE=$(RELEASE)" --build-arg "CUDA=$(CUDA)" \
 		-v $(CURDIR)/dst:/dst \
 		-f ./Dockerfile.l4t .
