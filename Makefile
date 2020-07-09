@@ -15,7 +15,7 @@
 DOC     = /usr/share/doc/cuda
 VAR     = /var/cuda
 
-RELEASE ?= r32.4
+RELEASE ?= r32.4.3
 CUDA    ?= 10.2
 
 include $(CURDIR)/common.mk
