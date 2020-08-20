@@ -21,6 +21,9 @@ This three step process is done in this way to be able to satisfy #3.
 In the future we should probably just install the CUDA packages in such a way that we mirror "cuda-base" on x86.
 This would allow us to reduce the build to a single Dockerfile while incurring a small size increase (~100M).
 
+# Adding container path
+Update the container paths $L4T_CUDA_REGISTRY and $L4T_BASE_REGISTRY as applicable
+
 # Adding a new release
 
 Don't forget to do the following:
