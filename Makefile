@@ -18,6 +18,8 @@ VAR     = /var/cuda
 RELEASE ?= r32.4
 TAG     ?= r32.4.3
 CUDA    ?= 10.2
+L4T_CUDA_REGISTRY   ?= "nvcr.io/nvidian/nvidia-l4t-cuda"
+L4T_BASE_REGISTRY   ?= "nvcr.io/nvidian/nvidia-l4t-base"
 
 include $(CURDIR)/common.mk
 
@@ -25,11 +27,11 @@ all: image
 
 image:
 	mkdir -p ${CURDIR}/dst
-	podman build $(DOCKER_BINFMT_MISC) -t nvcr.io/nvidian/nvidia-l4t-cuda:$(TAG) \
+	podman build $(DOCKER_BINFMT_MISC) -t $(L4T_CUDA_REGISTRY):$(TAG) \
 		--build-arg "RELEASE=$(RELEASE)" --build-arg "CUDA=$(CUDA)" \
 		-f ./Dockerfile.cuda ./
-	podman run -t $(DOCKER_BINFMT_MISC) -v $(CURDIR)/dst:/dst nvcr.io/nvidian/nvidia-l4t-cuda:$(TAG) sh -c 'cp -r /usr/local/cuda/* /dst'
-	podman build $(DOCKER_BINFMT_MISC) -t nvcr.io/nvidian/nvidia-l4t-base:$(TAG) \
+	podman run -t $(DOCKER_BINFMT_MISC) -v $(CURDIR)/dst:/dst $(L4T_CUDA_REGISTRY):$(TAG) sh -c 'cp -r /usr/local/cuda/* /dst'
+	podman build $(DOCKER_BINFMT_MISC) -t $(L4T_BASE_REGISTRY):$(TAG) \
 		--build-arg "RELEASE=$(RELEASE)" --build-arg "CUDA=$(CUDA)" \
 		-v $(CURDIR)/dst:/dst \
 		-f ./Dockerfile.l4t .
