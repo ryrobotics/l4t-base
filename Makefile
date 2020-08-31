@@ -35,6 +35,8 @@ image:
 		--build-arg "RELEASE=$(RELEASE)" --build-arg "CUDA=$(CUDA)" \
 		-v $(CURDIR)/dst:/dst \
 		-f ./Dockerfile.l4t .
+	podman rm `podman ps -a | grep nvcr.io/nvidian/nvidia-l4t-cuda:r32.4.3 | head -n1 | awk '{print $$1;}'`
+	podman rmi  `podman images | grep nvcr.io/nvidian/nvidia-l4t-cuda  | head -n1 | awk '{print $$3;}'`
 
 push:
 	podman push nvcr.io/nvidian/nvidia-l4t-base:$(RELEASE)
