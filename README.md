@@ -1,12 +1,14 @@
 # Build instructions
 
 ```bash
-sudo make image
+sudo make image_r32
+sudo make image_r34
 sudo make push
 ```
 
-# Architecture Details
+# r32 Image Architecture Details
 
+The following are the architecture details of the r32.
 Use cases addressed by this image:
 1) Be able to run gstreamer samples (during a docker run)
 2) Be able to run tensorrt samples (during a docker run)
@@ -22,13 +24,13 @@ In the future we should probably just install the CUDA packages in such a way th
 This would allow us to reduce the build to a single Dockerfile while incurring a small size increase (~100M).
 
 # Adding container path
+
 Update the container paths $L4T_CUDA_REGISTRY and $L4T_BASE_REGISTRY as applicable
 
 # Adding a new release
 
-Don't forget to do the following:
-- Bump the RELEASE variable
-- Add the CUDA packages in a directory pointed to by the $RELEASE variable
+- Update the RELEASE, TAG, CUDA variables in the Makefile
+- For r32, add the CUDA packages in a directory pointed to by the $RELEASE variable
 
 # Size Estimates
 
@@ -43,6 +45,9 @@ Don't forget to do the following:
 * ~600MB if you use the current hybrid technique
     * We build a cuda-devel container and copy the stubs + headers
 
+# r34 Image Architecture Details
+
+Starting from the r34, the cuda headers and stubs were removed from the image.
 
 # libpod Installation Instructions
 
