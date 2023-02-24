@@ -51,6 +51,7 @@ RUN apt-get update && \
     python \
     python-pexpect \
     python3-distutils \
+    python3-numpy \
     sox \
     udev \
     vulkan-utils \
